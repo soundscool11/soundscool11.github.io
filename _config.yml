@@ -1,0 +1,8 @@
+title: Siwon Blog
+description: Notion-powered blog
+theme: minima
+
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+
+timezone: Asia/Seoul
