@@ -13,11 +13,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      # 1) Notion -> 파일 생성만 (커밋/푸시 금지)
       - uses: whatasame/notion-to-jekyll@v0
         with:
           notion_api_key: ${{ secrets.NOTION_API_KEY }}
           notion_database_id: ${{ secrets.NOTION_DATABASE_ID }}
-          commit_username: github-actions[bot]
-          commit_email: github-actions[bot]@users.noreply.github.com
+          commit_message: ""   # 커밋 단계 스킵 유도(빈 값)
+
+      # 2) 우리가 직접 커밋/푸시
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Sync posts from Notion"
+            git push
+          fi
 
