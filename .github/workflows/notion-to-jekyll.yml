@@ -18,6 +18,6 @@ jobs:
         with:
           notion_api_key: ${{ secrets.NOTION_API_KEY }}
           notion_database_id: ${{ secrets.NOTION_DATABASE_ID }}
-          commit_user_name: github-actions[bot]
+          commit_username: github-actions[bot]
           commit_email: github-actions[bot]@users.noreply.github.com
 
